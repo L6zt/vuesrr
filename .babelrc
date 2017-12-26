@@ -1,0 +1,9 @@
+{
+  "presets": [
+    ["vue-app", {"targets": { "ie": 9, "uglify": true }}],
+    ["stage-3"]
+  ],
+  "plugins": [
+    "syntax-dynamic-import"
+  ]
+}

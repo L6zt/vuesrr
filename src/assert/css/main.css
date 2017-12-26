@@ -1,0 +1,10 @@
+@reset-global pc;
+html {
+  width: 100%;
+  height: 100%;
+}
+body,#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

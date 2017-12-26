@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    {{{ meta.inject().title.text() }}}
+    {{{ meta.inject().meta.text() }}}
+    <style>
+      #skip a {  position:absolute;  left:-10000px;  top:auto;  width:1px;  height:1px;  overflow:hidden;  }
+      #skip a:focus {  position:static;  width:auto;  height:auto;  }
+    </style>
+  </head>
+  <body>
+  <!--vue-ssr-outlet-->
+  </body>
+</html>

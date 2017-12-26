@@ -1,0 +1,1 @@
+ export const apiOrigin = 'http://ssrv.jcmark.cn/backer/'
