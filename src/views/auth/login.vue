@@ -25,6 +25,14 @@
 <script>
 	import {mapState} from 'vuex'
 	export default {
+		metaInfo () {
+			return {
+				title: '服务器login',
+				meta: [
+					{ vmid: 'description', name: 'description', content: '我是login' }
+				]
+			}
+		},
 		data() {
 			return {
 				btnState: false,

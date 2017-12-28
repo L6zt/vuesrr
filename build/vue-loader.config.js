@@ -3,7 +3,7 @@ module.exports = {
   preserveWhitespace: false,
   postcss: [
 	  require('postcss-salad')({
-		  browsers: ['ie > 8', 'last 2 version']
+		  browsers: ['ie > 8']
       })
   ]
 }

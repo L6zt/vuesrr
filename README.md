@@ -1,5 +1,5 @@
 ## vue ssr
-###目录简介
+###目录简介 ### postcss vue-loader postcss-salad 版本依赖 有问题 造成 PostCSS Bem 不能使用
 1. <<components :: 当前 项目组件>>
 2. <<directives :: 当前 指令>>
 3. <<plugins  :: 当前 插件>>

@@ -4,7 +4,9 @@
             {{isLogin}}
         </h3>
          <router-link to="auth/login">login</router-link>////
-         <router-link to="/gift">gift</router-link>
+         <router-link to="/gift">gift</router-link>///
+        <router-link to="/common/test">test</router-link>///
+        <router-link to="/socket">socket</router-link>
     </div>
 </template>
 <script>

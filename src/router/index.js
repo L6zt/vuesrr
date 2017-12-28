@@ -18,15 +18,16 @@ export function createRouter () {
 			{  path: '',
 			   component: () => import('../views/index.vue'),
 			},
-			// {  path: '',
-			// 	component: () => import('../views/common/index.vue'),
-			// 	children: [
-			// 		{path: 'test', component: () => import('../views/test/index.vue')},
-			// 		{path: 'tp', component: () => import('../views/test/tp.vue')}
-			// 	]
-			// },
+			{  path: '/common',
+				component: () => import('../views/common/index.vue'),
+				children: [
+					{path: 'test', component: () => import('../views/test/index.vue')},
+					{path: 'tp', component: () => import('../views/test/tp.vue')}
+				]
+			},
 		]
 	  },
+	  {path: '/socket', component: () => import('../views/socket/index.vue')},
 	  {path: '/gift', component: () => import('../views/gift/gift.vue')},
 	  {path: '/auth/login', component: () => import('../views/auth/login.vue')},
 	  {path: '*', component: () => import('../views/notFound.vue')},

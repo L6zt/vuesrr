@@ -16,7 +16,7 @@
     /*@param 滚轴父盒子高度*/
    /*@param top 滚轴离顶端高度*/
    /*@param mHieght 最大高度*/
-   import {on, off} from '../../../utils/dom'
+    import {on, off} from '../../../utils/dom'
     export default  {
 	    $x: null,
         $isDown: false,
@@ -77,6 +77,7 @@
 	            })
             },
             move (e) {
+            	e.preventDefault()
 	            const {pageY} = e
                 const {$options: {$x, $isDown},  mHeight, sHeight, mdfT} = this
                 // mHeight sHeight top
@@ -90,7 +91,6 @@
                 this.$emit('mod:scroll', this.mdfT)
             },
             end (e) {
-            	console.log('end')
 	            const {move, end, el} = this
             	off({
                     el,

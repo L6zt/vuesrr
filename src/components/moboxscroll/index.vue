@@ -53,7 +53,7 @@
                 this.slHeight = con && con.scrollHeight
             },
             move (e) {
-    			console.log(e)
+//    			console.log(e)
                 const {deltaY} = e
                 const {top, slHeight, height} = this
                 const max = height - slHeight
