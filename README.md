@@ -1,5 +1,6 @@
 ## vue ssr
-###目录简介 ### postcss vue-loader postcss-salad 版本依赖 有问题 造成 PostCSS Bem 不能使用
+###目录简介
+### postcss vue-style-loader postcss-salad postcss依赖有问题 造成 PostCSS-Bem 不能使用, 可手动删除 vue-style-loader 、 postcss-salad、 salad-bem  里 的postcssz，保持 node_moudles 有最新的postcss 即可。
 1. <<components :: 当前 项目组件>>
 2. <<directives :: 当前 指令>>
 3. <<plugins  :: 当前 插件>>
