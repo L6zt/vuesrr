@@ -9,11 +9,17 @@
             <section class="test-item" :class="index % 2 === 0 ? 'odd' : 'even' " v-for="index in num">
             </section>
         </scroll-container>
+        <Pagination
+                v-model="current"
+                :allPage="all"
+        >
+        </Pagination>
     </div>
 </template>
 <script>
     import  {mapState} from 'vuex'
     import scrollContainer from  '../../components/moboxscroll/index.vue'
+    import Pagination from '../../components/pagination.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -29,7 +35,9 @@
         data () {
 	        return {
 	        	fHeight: 500,
-                num: 10
+                num: 10,
+                current: 1,
+                all: 10
             }
         },
 	    computed: {
@@ -45,7 +53,7 @@
                 console.log(this.num)
             }
         },
-        components: {scrollContainer}
+        components: {scrollContainer, Pagination}
     }
 </script>
 <style>

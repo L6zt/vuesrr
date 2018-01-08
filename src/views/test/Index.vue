@@ -12,6 +12,14 @@
                 {{item.id}} {{item.key}}
             </section>
         </transition-group>
+        <div class="in" v-for="item, index in v" :key="index">
+            <input type="text" :value="item.a" @input="inp(index,'a' ,$event)">
+            <input type="text" :value="item.b" @input="inp(index, 'b',$event)">
+            <input type="text" v-model="item.c" disabled>
+        </div>
+        <button @click="addV">
+            add+++
+        </button>
     </div>
 </template>
 <script>
@@ -28,6 +36,11 @@
 	    	return {
                 list: [],
                 tList: [],
+                v: [{
+                	a: null,
+                    b: null,
+                    c: null
+                }],
                 init: [
 	                {id: 1},
 	                {id: 2},
@@ -63,6 +76,24 @@
 	            item.key = Math.random().toString().slice(2)
 	            this.tList.unshift(item)
 	            setTimeout(this.changeTlist, 3000)
+            },
+            inp (index,tg ,e) {
+	    		const value = e.target.value
+	    		if (tg === 'a') {
+	    			this.v[index]['a'] = value
+                    this.v[index]['b'] = 2 * value
+                } else {
+				    this.v[index]['a'] = value / 2
+				    this.v[index]['b'] = value
+                }
+                this.v[index]['c'] = parseFloat(this.v[index]['a']) + parseFloat(this.v[index]['b'])
+            },
+            addV () {
+	    		this.v.push({
+                    a: null,
+                    b: null,
+                    c: null
+                })
             }
         },
         mounted () {
