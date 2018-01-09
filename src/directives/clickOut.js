@@ -6,7 +6,7 @@
 			const mC = window.document.body
 			el._clickOut || (el._clickOut = {})
 			const otFn = (e) => {
-				if (!contains(el, e.target)) {
+				if (!contains(el, e.target) && el !== e.target) {
 					context[expression](e)
 				}
 			}

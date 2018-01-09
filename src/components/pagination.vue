@@ -1,21 +1,32 @@
 <template>
     <div class="jc-pagination">
-        <a class="pd-left" @click="handlePre($event)" :class="{disabled: value === 1}">
+        <a class="pd-left" @click="handlePre($event)"
+        :class="{disabled: value === 1}"
+        >
             上一页
         </a>
         <a v-for="item, index in list"
            @click="handleSelect($event,item)"
            :key="index"
            :class="{active: item === value, 'normal-pq': true}"
-           :href="typeof item === 'number' ? `son/${value}` : `javascript:void(0)`">
-            {{item}}
+           :href="typeof item === 'number' ? `${ssrHrefReplace(item)}` : `javascript:void(0)`"
+        >
+          {{item}}
         </a>
-        <a class="pd-right" @click="handleNext" :class="{disabled: value === allPage}">
+        <a class="pd-right"
+          @click="handleNext"
+          :class="{disabled: value === allPage}"
+        >
             下一页
         </a>
     </div>
 </template>
 <script>
+    /*
+        ********  ********
+          ssrHref ::: 'gist/:num/pageIndex=1&pageSize=10'
+        *******   ********
+    */
 	export default {
 		props: {
 			value: {
@@ -31,7 +42,11 @@
 				type: Number,
 				require: false,
 				default: 5
-			}
+			},
+            ssrHref: {
+				type: String,
+                default: ''
+            }
 		},
 		data () {
 			return {
@@ -83,7 +98,7 @@
 					}
 					this.list = list
 					return
-				}
+  				}
 			},
 			handleSelect (e, item) {
 				e.preventDefault()
@@ -100,7 +115,15 @@
 				e.preventDefault()
 				let {allPage, value} = this
 				allPage !== value && this.$emit('input', value + 1)
-			}
+			},
+            ssrHrefReplace (num) {
+				const {ssrHref} = this
+                console.log(ssrHref)
+				if (ssrHref) {
+					return ssrHref.replace(/:num/i, num)
+                }
+				return ''
+            }
 		},
 		created () {
 			this.handlePq()
@@ -108,33 +131,37 @@
 	}
 </script>
 <style>
-    .jc-pagination {
-    @utils-clearfix;
-    a{
-        font-size: 12px;
-        cursor: pointer;
-        text-decoration: none;
-        text-align: center;
-        min-width: 30px;
-        height: 20px;
-        line-height: 20px;
-        margin-left: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        color: #333;
-    }
-    .pd-left, .pd-right {
-       float: left;
-       &.disabled {
-          cursor: not-allowed;
-          color: #ccc;
-      }
-    }
-    .normal-pq {
-        float: left;
-         &.active {
-          color: #ce2f2f;
+
+  @component-namespace jc {
+    @component pagination {
+      @utils-clearfix;
+      a{
+          font-size: 12px;
+          cursor: pointer;
+          text-decoration: none;
+          text-align: center;
+          min-width: 30px;
+          height: 20px;
+          line-height: 20px;
+          margin-left: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          color: #333;
         }
+        .pd-left, .pd-right {
+          float: left;
+          &.disabled {
+            cursor: not-allowed;
+            color: #ccc;
+          }
+      }
+      .normal-pq {
+          float: left;
+          &.active {
+               background: #49a9ee;
+               color: #fff;
+          }
       }
     }
+  }
 </style>
