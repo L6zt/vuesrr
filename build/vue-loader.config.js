@@ -5,7 +5,12 @@ module.exports = {
 	  require('postcss-salad')({
 		  browsers: ['ie > 8'],
 		  features: {
-			  "bem": true
+			  "bem": {
+				  defaultNamespace: undefined, // default namespace to use, none by default
+				  shortcuts: {
+					  utility: 'util'
+				  }
+			  }
 		  }
 	  })
   ]

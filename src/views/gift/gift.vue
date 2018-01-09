@@ -103,7 +103,7 @@
 	        	fHeight: 200,
                 num: 10,
                 current: 1,
-                all: 100,
+                all: 1000,
                 ssrHref: 'gift/test/:num?pageIndex=1&pageSize=10',
                 isDialog: false,
                 banner: [

@@ -8,7 +8,7 @@
         <a v-for="item, index in list"
            @click="handleSelect($event,item)"
            :key="index"
-           :class="{active: item === value, 'normal-pq': true}"
+           :class="{'is-active': item === value, 'normal-pq': true}"
            :href="typeof item === 'number' ? `${ssrHrefReplace(item)}` : `javascript:void(0)`"
         >
           {{item}}
@@ -118,7 +118,6 @@
 			},
             ssrHrefReplace (num) {
 				const {ssrHref} = this
-                console.log(ssrHref)
 				if (ssrHref) {
 					return ssrHref.replace(/:num/i, num)
                 }
@@ -157,10 +156,13 @@
       }
       .normal-pq {
           float: left;
-          &.active {
+          @when active {
                background: #49a9ee;
                color: #fff;
           }
+         @element elem {
+
+         }
       }
     }
   }
