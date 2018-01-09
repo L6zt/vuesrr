@@ -76,6 +76,22 @@
                 </simple-banner>
             </div>
         </section-container>
+        <section-container>
+            手风琴
+            <template slot="content">
+                <spread-transition>
+                    <div v-show="am">
+                        <div style="height: 40px; background: red">
+                       </div>
+                        <div style="height: 40px; background: blue">
+                        </div>
+                    </div>
+                </spread-transition>
+                <button @click="tn">
+                    click{{am}}
+                </button>
+            </template>
+        </section-container>
     </div>
 </template>
 <script>
@@ -86,6 +102,7 @@
     import sectionContainer from '../../components/base/sectionContainer.vue'
     import jcDialog from '../../components/dialog.vue'
     import simpleBanner from '../../components/banner/simpleBanner.vue'
+    import spreadTransition from '../../components/spreadTransition.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -106,6 +123,8 @@
                 all: 1000,
                 ssrHref: 'gift/test/:num?pageIndex=1&pageSize=10',
                 isDialog: false,
+
+		        am: false,
                 banner: [
                     {
                     	href: 'a',
@@ -167,9 +186,13 @@
 	    	change () {
 	    		this.num =  1 * (Math.random().toString().replace(/0.[0]?/ , '').substr(1, 2))
                 console.log(this.num)
+            },
+            tn () {
+	    		this.am = !this.am
+                console.log('am')
             }
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner}
+        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition}
     }
 </script>
 <style>

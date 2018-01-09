@@ -62,3 +62,25 @@
 			return !!(parentNode.compareDocumentPosition(childNode) & 16)
 		}
 	}
+	export const addClass = function (el, className) {
+		if (typeof el !== "object") {
+			console.log('el is not elem')
+			return null
+		}
+		let  classList = el['className']
+		classList = classList === '' ? [] : className.split(/\s+/)
+		if (classList.indexOf(className) === -1) {
+			classList.push(className)
+			el.className = classList.join(' ')
+		} else {
+			console.warn('warn className current')
+		}
+	}
+	export const removeClass = function (el, className) {
+		let classList = el['className']
+		classList = classList === '' ? [] : className.split(/\s+/)
+		classList = classList.filter(item => {
+			return item !== className
+		})
+		el.className = 	classList.join(' ')
+	}

@@ -3,7 +3,7 @@ module.exports = {
   preserveWhitespace: false,
   postcss: [
 	  require('postcss-salad')({
-		  browsers: ['ie > 8'],
+		  browsers: [  'last 2 versions', 'ie 9'],
 		  features: {
 			  "bem": {
 				  defaultNamespace: undefined, // default namespace to use, none by default
