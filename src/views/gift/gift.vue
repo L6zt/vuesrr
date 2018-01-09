@@ -67,6 +67,15 @@
                 </button>
             </div>
         </section-container>
+        <section-container>
+            轮播图 简单组件
+            <div slot="content" style="position: relative; width: 300px; height: 200px">
+                <simple-banner
+                        :list="banner"
+                >
+                </simple-banner>
+            </div>
+        </section-container>
     </div>
 </template>
 <script>
@@ -76,6 +85,7 @@
     import singleSelect from '../../components/dropdown/singleSelect.vue'
     import sectionContainer from '../../components/base/sectionContainer.vue'
     import jcDialog from '../../components/dialog.vue'
+    import simpleBanner from '../../components/banner/simpleBanner.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -96,6 +106,20 @@
                 all: 100,
                 ssrHref: 'gift/test/:num?pageIndex=1&pageSize=10',
                 isDialog: false,
+                banner: [
+                    {
+                    	href: 'a',
+                        src: require('../../assert/img/banner/banner-a.jpg')
+                    },
+	                {
+		                href: 'c',
+		                src: require('../../assert/img/banner/banner-b.jpg')
+	                },
+	                {
+		                href: 'c',
+		                src: require('../../assert/img/banner/banner-c.jpg')
+	                }
+                ],
                 select: {
 	        		k: null,
 	        		data: [
@@ -145,7 +169,7 @@
                 console.log(this.num)
             }
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog}
+        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner}
     }
 </script>
 <style>
