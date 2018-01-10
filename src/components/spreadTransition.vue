@@ -3,7 +3,7 @@
     export default {
 	    functional: true,
     	render (h, ct) {
-	    	let height, fn
+	    	let height
             return h('transition', {
             	props: {
                     css: false
@@ -15,55 +15,58 @@
                         el.style.overflow = 'hidden'
                     },
                     enter (el, done) {
-				            height = el.scrollHeight
-				            el.style.height =  `${height}px`
-				            el.style.overflow = 'hidden'
-	                        fn = () => {
-		                        done()
-	                        }
-				            on({
-                                el,
-                                type: 'transitioned',
-                                fn
-                            })
-                    },
-                    afterEnter (el) {
-		            	removeClass(el, 'transition-am')
-		            	off(
-				            {
-					            el,
-					            type: 'transitioned',
-					            fn
-				            }
-                        )
+	                    const fn = () => {
+		                    done()
+		                    removeClass(el, 'transition-am')
+		                    off(
+			                    {
+				                    el,
+				                    type: 'transitionend',
+				                    fn
+			                    }
+		                    )
+		                    el.style.height = ''
+		                    el.style.overflow =''
+	                    }
+	                    on({
+		                    el,
+		                    type: 'transitionend',
+		                    fn
+	                    })
+                        setTimeout(() => {
+	                        height = el.scrollHeight
+	                        el.style.height =  `${height}px`
+	                        el.style.overflow = 'hidden'
+                        })
                     },
 		            beforeLeave (el) {
+			            const height = el.scrollHeight
 			            addClass(el, 'transition-am')
-			            height = el.scrollHeight
 			            el.style.height =  `${height}px`
 			            el.style.overflow = 'hidden'
                     },
 		            leave (el, done) {
-			            el.style.height =  0
-			            el.style.overflow = 'hidden'
-			            fn = () => {
+			           const fn = () => {
 				            done()
+				            removeClass(el, 'transition-am')
+				            off(
+					            {
+						            el,
+						            type: 'transitionend',
+						            fn
+					            }
+				            )
+				            el.style.height = ''
+				            el.style.overflow = ''
 			            }
 			            on({
 				            el,
-				            type: 'transitioned',
+				            type: 'transitionend',
 				            fn
 			            })
-                    },
-		            afterLeave (el) {
-			            removeClass(el, 'transition-am')
-			            off(
-				            {
-					            el,
-					            type: 'transitioned',
-					            fn
-				            }
-			            )
+                        setTimeout(() => {
+	                        el.style.height = 0
+                        })
                     }
                 }
             }, ct.children)
@@ -72,6 +75,6 @@
 </script>
 <style>
     .transition-am {
-        transition: height 300ms;
+        transition: all 300ms;
     }
 </style>

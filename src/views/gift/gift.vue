@@ -77,14 +77,14 @@
             </div>
         </section-container>
         <section-container>
-            手风琴
+            折叠组件
             <template slot="content">
                 <spread-transition>
                     <div v-show="am">
-                        <div style="height: 40px; background: red">
-                       </div>
-                        <div style="height: 40px; background: blue">
-                        </div>
+                        xxxxxxxxxxxxxxx
+                        bbbbbbbbbbbbb
+                        ccccccccccc
+                        eeeeeeeee
                     </div>
                 </spread-transition>
                 <button @click="tn">
@@ -92,6 +92,42 @@
                 </button>
             </template>
         </section-container>
+        <section-container>
+            loading 组件
+            <template slot="content">
+                <simple-load></simple-load>
+            </template>
+        </section-container>
+        <section-container>
+        单选 组件
+        <template slot="content">
+            <select-item
+                    v-for="item, index in st.list"
+                    :dt="item"
+                    :key="index"
+                    v-model="st.k"
+            >
+            </select-item>
+        </template>
+    </section-container>
+    <section-container>
+            多选 组件
+            <template slot="content">
+                <select-group
+                    min="1"
+                    max="2"
+                    v-model="gp"
+                >
+                    <select-item
+                            v-for="item, index in st.list"
+                            :dt="item"
+                            :key="index"
+                            :isGroup="true"
+                    >
+                    </select-item>
+                </select-group>
+            </template>
+     </section-container>
     </div>
 </template>
 <script>
@@ -103,16 +139,17 @@
     import jcDialog from '../../components/dialog.vue'
     import simpleBanner from '../../components/banner/simpleBanner.vue'
     import spreadTransition from '../../components/spreadTransition.vue'
+    import simpleLoad from '../../components/loading/simpleLoad.vue'
+    import selectItem from '../../components/select/selectItem.vue'
+    import selectGroup from '../../components/select/selectGroup.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
 			    name: 'react',
 			    password: '97019jiao'
 		    }).then(data => {
-			    console.log(data, 'gift')
 			    return data
 		    }).catch(e => {
-			    console.log('e', e)
 		    })
 	    },
         data () {
@@ -123,7 +160,11 @@
                 all: 1000,
                 ssrHref: 'gift/test/:num?pageIndex=1&pageSize=10',
                 isDialog: false,
-
+                gp: [1],
+                st: {
+	        		k: null,
+                    list: [{v: 1, k: 1}, {v: 3, k: 3}, {v: 2, k:2}, {v: 6, k: 6}]
+                },
 		        am: false,
                 banner: [
                     {
@@ -192,7 +233,7 @@
                 console.log('am')
             }
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition}
+        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup}
     }
 </script>
 <style>
