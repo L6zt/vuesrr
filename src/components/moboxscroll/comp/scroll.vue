@@ -59,7 +59,8 @@
         },
         methods: {
             start (e) {
-            	const {pageY} = e
+	            e.stopPropagation()
+	            const {pageY} = e
                 const {move, end, el} = this
                 Object.assign(this.$options, {
                 	$x: pageY,
@@ -78,6 +79,7 @@
             },
             move (e) {
             	e.preventDefault()
+	            e.stopPropagation()
 	            const {pageY} = e
                 const {$options: {$x, $isDown},  mHeight, sHeight, mdfT} = this
                 // mHeight sHeight top
@@ -92,7 +94,8 @@
             },
             end (e) {
 	            const {move, end, el} = this
-            	off({
+	            e.stopPropagation()
+	            off({
                     el,
                     type: 'mousemove',
                     fn: move

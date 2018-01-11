@@ -54,7 +54,9 @@
             },
             move (e) {
 //    			console.log(e)
-                const {deltaY} = e
+                e.preventDefault()
+                e.stopPropagation()
+	            const {deltaY} = e
                 const {top, slHeight, height} = this
                 const max = height - slHeight
                 let v = top + deltaY * 0.05

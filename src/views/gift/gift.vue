@@ -99,6 +99,12 @@
             </template>
         </section-container>
         <section-container>
+                loading cnavas 组件
+                <template slot="content">
+                    <canvas-load></canvas-load>
+                </template>
+       </section-container>
+     <section-container>
         单选 组件
         <template slot="content">
             <select-item
@@ -142,6 +148,7 @@
     import simpleLoad from '../../components/loading/simpleLoad.vue'
     import selectItem from '../../components/select/selectItem.vue'
     import selectGroup from '../../components/select/selectGroup.vue'
+    import canvasLoad from '../../components/loading/canvasload.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -233,7 +240,7 @@
                 console.log('am')
             }
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup}
+        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad}
     }
 </script>
 <style>
