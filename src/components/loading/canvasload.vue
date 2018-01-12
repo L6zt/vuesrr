@@ -5,39 +5,30 @@
     </div>
 </template>
 <script>
+    import {requestAnimationFrame, cancelAnimationFrame} from '../../utils/tools.js'
     export default  {
     	ctx: null,
+        k: null,
         data () {
     	 return	 {
     	 	deg: 0
          }
         },
     	mounted () {
-    		const vdeg = 0.01
+    		const vdeg = 0.03
     		this.$options.ctx = this.$refs['canvas'].getContext('2d')
-            setInterval(() => {
+            const am = () => {
 	            this.draw(this.deg)
 	            this.deg = this.deg + vdeg
-            }, 13)
+                requestAnimationFrame(am)
+            }
+		   this.$options.k =  requestAnimationFrame(am)
+        },
+        destroyed () {
+    		cancelAnimationFrame(this.$options.k)
+            this.$options.k = null
         },
         methods: {
-//    		draw () {
-//    			// 初始化
-//                const {$options: {ctx}} = this
-//    			ctx.restore()
-//                ctx.translate(50, 50)
-//                ctx.beginPath()
-//                ctx.fillStyle = '#ccc'
-//                ctx.moveTo(20, 0)
-//                ctx.arc(0, 0, 20, 0 ,Math.PI, true)
-//                ctx.lineTo(-25, 0)
-//                ctx.moveTo(25, 0)
-//                ctx.arc(0, 0, 25, 0, Math.PI, true)
-//			    ctx.moveTo(25, 0)
-//                ctx.lineTo(20, 0)
-//                ctx.closePath()
-//                ctx.stroke()
-//            },
 	        draw (deg) {
 		        // 初始化
 		        const {$options: {ctx}} = this
@@ -51,16 +42,7 @@
                 ctx.rotate(deg)
                 ctx.beginPath()
 		        ctx.lineWidth = 5
-		        ctx.strokeStyle = 'black'
-                 // 0 1.5 1.5 1.5 3 3
-                // 1
-//		        ctx.arc(0, 0, 25, startAngle , endAngle, false) // wu
-//		        ctx.arc(0, 0, 25, endAngle ,  endAngle + startAngle ) // you
-//		        // 2
-//		        ctx.arc(0,0, 25, endAngle + startAngle , 2 * endAngle)// wu
-//		        ctx.arc(0,0, 25, 2 * endAngle , 2 * endAngle  + startAngle )// you
-//		        // 3
-//		        ctx.arc(0,0, 25, 2 * endAngle + startAngle , 3 * endAngle)// wu
+		        ctx.strokeStyle =`rgb(${Math.floor(255 - 42.5 * (times % 6))},${Math.floor(255-42.5 * 1)},0)`
                 if (times % 2 === 0) {
 	                ctx.arc(0, 0, 25, startAngle + (k - 1) * endAngle, k * endAngle, false) // wu
                 } else {
