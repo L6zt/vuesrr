@@ -134,6 +134,12 @@
                 </select-group>
             </template>
      </section-container>
+        <section-container>
+            全局 tip
+            <template slot="content">
+                <button @click="tip">click</button>
+            </template>
+        </section-container>
     </div>
 </template>
 <script>
@@ -238,7 +244,12 @@
             tn () {
 	    		this.am = !this.am
                 console.log('am')
+            },
+            tip () {
+	            this.$log({type: 'warn', content: '警告'})
             }
+        },
+        mounted () {
         },
         components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad}
     }

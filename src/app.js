@@ -3,6 +3,7 @@ import App from './App.vue'
 import rgComponent from './packages/registerComponents'
 import _event from './plugins/_event'
 import _extend_utils from './plugins/_extend_utils'
+import log from './plugins/log'
 import  clickOut from './directives/clickOut'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -16,6 +17,7 @@ Vue.use( _extend_utils)
 Vue.use(rgComponent)
 // 第三方 ui库
 Vue.use(ElementUI)
+Vue.use(log)
 //
 Vue.directive('clickOut', clickOut)
 export function createApp () {
