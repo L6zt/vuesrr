@@ -16,9 +16,7 @@ log.install = (Vue, options) => {
 				}
 			},
 			components: {Log},
-			destroyed () {
-				body.appendChild(elem)
-				this.$mount(elem)
+			mounted () {
 				setTimeout(() => {
 					this.show = true
 					setTimeout(() => {
@@ -38,6 +36,8 @@ log.install = (Vue, options) => {
 				})
 			}
 		})
+		body.appendChild(elem)
+		vm.$mount(elem)
 	}
 }
 export default log
