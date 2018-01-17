@@ -9,6 +9,7 @@
     export default  {
     	ctx: null,
         k: null,
+        cycle: 0,
         data () {
     	 return	 {
     	 	deg: 0
@@ -31,6 +32,7 @@
         methods: {
 	        draw (deg) {
 		        // 初始化
+                this.$options.cycle ++
 		        const {$options: {ctx}} = this
 		        const endAngle = Math.PI * 1.5
                 const times = parseInt(deg / endAngle)
@@ -42,7 +44,7 @@
                 ctx.rotate(deg)
                 ctx.beginPath()
 		        ctx.lineWidth = 5
-		        ctx.strokeStyle =`rgb(${Math.floor(times % 255)},${Math.floor(255-42.5 * 1)},0)`
+		        ctx.strokeStyle =`rgb(${Math.floor(this.$options.cycle * 0.05  % 25)},${Math.floor(255-42.5 * 1)},0)`
                 if (times % 2 === 0) {
 	                ctx.arc(0, 0, 25, startAngle + (k - 1) * endAngle, k * endAngle, false) // wu
                 } else {

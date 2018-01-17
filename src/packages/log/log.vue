@@ -5,11 +5,15 @@
              v-show="show"
         >
             {{content}}
+            <slot></slot>
         </div>
     </transition>
 </template>
 <script>
+    const uuidList = []
+    let id = 0
     export  default {
+    	id: null,
         props: {
     		type : {
     			type: String
@@ -23,7 +27,12 @@
             }
         },
         mounted () {
-    		console.log('mounted', this.type)
+    		this.$options.id = id
+        	uuidList.push(id)
+    		id ++
+        },
+        destroyed () {
+        	console.log(uuidList)
         }
     }
 </script>

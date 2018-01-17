@@ -6,7 +6,7 @@ log.install = (Vue, options) => {
 		// 生成 寄存 dom 元素
 		const elem =  document.createElement('div')
 		const body = document.body
-		elem.setAttribute('data-id', Math.random().toString().slice(2))
+		elem.setAttribute('data-uuid', Math.random().toString().slice(2))
 		const vm = new Vue({
 			data () {
 				return {
@@ -16,6 +16,18 @@ log.install = (Vue, options) => {
 				}
 			},
 			components: {Log},
+			destroyed () {
+				body.appendChild(elem)
+				this.$mount(elem)
+				setTimeout(() => {
+					this.show = true
+					setTimeout(() => {
+						this.show = false
+						body.removeChild(vm.$el)
+						this.$destroy()
+					}, 3000)
+				})
+			},
 			render (h) {
 			return	h('log', {
 					props: {
@@ -25,16 +37,6 @@ log.install = (Vue, options) => {
 					}
 				})
 			}
-		})
-		body.appendChild(elem)
-		vm.$mount(elem)
-		setTimeout(() => {
-			vm.show = true
-			setTimeout(() => {
-				vm.show = false
-				body.removeChild(vm.$el)
-				vm.$destroy()
-			}, 3000)
 		})
 	}
 }

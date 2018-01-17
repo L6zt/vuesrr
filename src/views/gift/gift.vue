@@ -140,6 +140,12 @@
                 <button @click="tip">click</button>
             </template>
         </section-container>
+        <section-container>
+           switch
+            <template slot="content">
+                <jc-switch></jc-switch>
+            </template>
+        </section-container>
     </div>
 </template>
 <script>
@@ -155,6 +161,8 @@
     import selectItem from '../../components/select/selectItem.vue'
     import selectGroup from '../../components/select/selectGroup.vue'
     import canvasLoad from '../../components/loading/canvasload.vue'
+    import dragSort from '../../components/drag/sort.vue'
+    import jcSwitch from '../../components/switch/swith.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -251,7 +259,7 @@
         },
         mounted () {
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad}
+        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch }
     }
 </script>
 <style>
