@@ -97,8 +97,8 @@ function render (req, res) {
     if (err) {
       return handleError(err)
     }
-    // 压缩 html 文件
-    html = html.replace(/(\r\n)|(\n)/g,'').replace(/\s+(?=<)/g, '')
+    // 压缩 html 文件 .replace(/(\r\n)|(\n)/g,'').replace(/<\s+(?=<)/g, '')
+    html = html.replace(/(\r\n)|(\n)/g,'').replace(/\s+(?=(<{1}))/g, '')
     res.end(html)
     if (cacheable) {
       microCache.set(req.url, html)

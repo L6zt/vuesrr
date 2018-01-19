@@ -146,6 +146,12 @@
                 <jc-switch></jc-switch>
             </template>
         </section-container>
+        <section-container>
+            switch
+            <template slot="content">
+              <clip-image></clip-image>
+            </template>
+        </section-container>
     </div>
 </template>
 <script>
@@ -163,6 +169,7 @@
     import canvasLoad from '../../components/loading/canvasload.vue'
     import dragSort from '../../components/drag/sort.vue'
     import jcSwitch from '../../components/switch/swith.vue'
+    import clipImage from '../../components/clip/clipImage.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -259,7 +266,7 @@
         },
         mounted () {
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch }
+        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch,clipImage }
     }
 </script>
 <style>

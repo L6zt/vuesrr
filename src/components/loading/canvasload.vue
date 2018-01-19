@@ -44,7 +44,7 @@
                 ctx.rotate(deg)
                 ctx.beginPath()
 		        ctx.lineWidth = 5
-		        ctx.strokeStyle =`rgb(${Math.floor(this.$options.cycle * 0.05  % 25)},${Math.floor(255-42.5 * 1)},0)`
+		        ctx.strokeStyle =`rgb(0 ,${Math.floor(255-42.5 * 1)},0)`
                 if (times % 2 === 0) {
 	                ctx.arc(0, 0, 25, startAngle + (k - 1) * endAngle, k * endAngle, false) // wu
                 } else {
