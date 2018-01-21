@@ -10,7 +10,7 @@ export const get = ({url, data = {}}) => {
 			if (err) {
 				return j(err)
 			}
-			console.log(typeof body)
+			console.log(body)
 			return r(JSON.parse(body))
 		})
 	}).then(({flag = 1, data = null, errMsg = null}) => {
@@ -34,7 +34,7 @@ export const post = ({url, data = {}}) => {
 			if (err) {
 				return j(err)
 			}
-			console.log(typeof body)
+			console.log(body)
 			return r(JSON.parse(body))
 		})
 	}).then(({flag = 1, data = null, errMsg = null}) => {

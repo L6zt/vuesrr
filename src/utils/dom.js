@@ -22,7 +22,7 @@
 				fn(event)
 			}
 			 finally  {
-				off({el, type, hyFn})
+				off({el, type, fn: hyFn})
 			}
 		}
 		on({el, type, fn: hyFn})
