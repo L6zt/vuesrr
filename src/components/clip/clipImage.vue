@@ -1,8 +1,8 @@
 <template>
-    <div class="jc-clip-image" :style="clip">
+    <div class="jc-clip-image" :style="{width: `${clip.width}`}">
         <canvas ref="ctx"
                 :width="clip.width"
-                :height="clip.width"
+                :height="clip.height"
                 @mousedown="handleClip($event)"
         >
         </canvas>
@@ -18,7 +18,7 @@
             <a class="upload-cancel">cancel</a>
         </div>
         <div class="create-canvas">
-            <a class="to-send-file" @click="outFile">生成文件</a>
+            <a class="to-send-file" @click="outFile" title="请打开控制台">生成文件</a>
         </div>
     </div>
 </template>
@@ -333,6 +333,7 @@
                 color: #fff;
                 border-radius: 5px;
                 background: #49a9ee;
+                cursor: pointer;
             }
         }
     }
