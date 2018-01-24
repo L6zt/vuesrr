@@ -1,18 +1,28 @@
 <template>
     <section class="jc-drag-sort" ref="content">
         <ul>
-            <li class="jc-drag-sort-item" v-for="item, index in sort" @mousedown="start(index)" ref="item">
+            <!--@dragover="dragover(index)"-->
+            <li class="jc-drag-sort-item"
+                v-for="item, index in sort"
+                @dragstart="dragstart(index, $event)"
+                @drop="drop(index, $event)"
+                @dragend="dragend(index, $event)"
+                @dragenter="dragenter(index, $event)"
+                draggable="true"
+                :class="{'active': index === mvIndex}"
+                ref="item">
                 {{item}}
             </li>
         </ul>
-        <div class="create-dom" v-show="isDrag">
-        {{index}}
-        </div>
+        <!--<div class="create-dom" v-show="isDrag">-->
+        <!--{{index}}-->
+        <!--</div>-->
     </section>
 </template>
 <script>
     import {on, off} from '../../utils/dom'
     export default  {
+    	orgAry: null,
     	data () {
     		return {
 			    sort: [
@@ -24,25 +34,51 @@
 				    background: 'blue'
 			    },
 			    isDrag: false,
-			    index: null
+			    oIndex: null,
+                mvIndex: null
 		    }
         },
         methods: {
-    	    start (index) {
-    	    	this.index = index
+	        dragstart (index, e) {
+	        	// 初始化
+                //e.preventDefault()
+	        	const orgAry = this.$options.orgAry = JSON.parse(JSON.stringify(this.sort))
+    	    	this.oIndex = index
                 this.isDrag = true
-                on({
-                    el: window,
-                    type: 'mousemove',
-                    fn: this.move
-                })
+//                this.sort = orgAry.map((item, index) => {
+//	        		if (index === this.index) {
+//	        			return ''
+//                    }
+//                    return item
+//                })
             },
-            move (e) {
-
+	        dragenter (index, e) {
+//		        e.preventDefault()
+                const {$options: {orgAry}, oIndex} =  this
+                const result =  [...orgAry]
+                const replace =  result.splice(oIndex, 1, orgAry[index])[0]
+                result.splice(index, 1, replace)
+                this.sort = result
+                this.mvIndex = index
             },
-            end (e) {
-
-            }
+	        dragleave (index, e) {
+                this.mvIndex = null
+            },
+	        dragend (index, e) {
+		        this.oIndex = null
+		        this.mvIndex = null
+            },
+	        drop (index, e) {
+		        e.preventDefault()
+                console.log(index, 'end')
+                if (index === this.oIndex) {
+		        	this.sort = this.$options.orgAry
+                } else  {
+                    this.dragenter(index, e)
+                }
+                this.oIndex = null
+                this.mvIndex = null
+	        },
         }
     }
 </script>
@@ -61,6 +97,9 @@
                 cursor: pointer;
                 &:hover {
                     background: red;
+                 }
+                &.active{
+                 opacity: 0.5;
                  }
             }
         }

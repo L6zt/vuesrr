@@ -107,6 +107,7 @@
      <section-container>
         单选 组件
         <template slot="content">
+            <pre style="display:block;height: 20px;line-height: 20px;">{{st.k}}</pre>
             <select-item
                     v-for="item, index in st.list"
                     :dt="item"
@@ -119,6 +120,7 @@
     <section-container>
             多选 组件
             <template slot="content">
+                <pre  style="display:block;height: 20px;line-height: 20px;">{{(gp || []).join('|')}}</pre>
                 <select-group
                     min="1"
                     max="2"
@@ -147,9 +149,21 @@
             </template>
         </section-container>
         <section-container>
-            switch
+            裁切图片
             <template slot="content">
               <clip-image></clip-image>
+            </template>
+        </section-container>
+        <section-container>
+            滑块
+            <template slot="content">
+                <slide></slide>
+            </template>
+        </section-container>
+        <section-container>
+            拖拽
+            <template slot="content">
+                <drag-sort></drag-sort>
             </template>
         </section-container>
     </div>
@@ -170,6 +184,7 @@
     import dragSort from '../../components/drag/sort.vue'
     import jcSwitch from '../../components/switch/swith.vue'
     import clipImage from '../../components/clip/clipImage.vue'
+    import slide from '../../components/slide/slide.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -266,7 +281,7 @@
         },
         mounted () {
         },
-        components: {scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch,clipImage }
+        components: {slide,scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch,clipImage }
     }
 </script>
 <style>
