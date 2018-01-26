@@ -149,6 +149,16 @@
             </template>
         </section-container>
         <section-container>
+            树形 选择
+            <template slot="content">
+                <tree-select
+                        :list="treeSelect"
+                        v-model="treeEnd"
+                >
+                </tree-select>
+            </template>
+        </section-container>
+        <section-container>
             裁切图片
             <template slot="content">
               <clip-image></clip-image>
@@ -185,6 +195,7 @@
     import jcSwitch from '../../components/switch/swith.vue'
     import clipImage from '../../components/clip/clipImage.vue'
     import slide from '../../components/slide/slide.vue'
+    import treeSelect from '../../components/dropdown/treeSelect.vue'
     export default  {
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
@@ -256,7 +267,23 @@
 					        v: 3
 				        }
 			        ]
-		        }
+		        },
+                treeEnd: 'ui',
+                treeSelect: [
+                    {k: 'a', v: 'a', child: [
+                        {k: 'b', v: 'b'},
+                        {k:'c', v: 'c'}
+                    ]},
+	                {k: 'z', v: 'z', child: [
+		                {k: 'b', v: '1'},
+		                {k:'c', v: '2'},
+                        {k: 3, v: 3, child: [
+                            {k: 31, v: 310},
+	                        {k: 32, v: 320}
+                        ]}
+	                ]},
+                    {k: 'ui', v: 'ui'}
+                ]
             }
         },
 	    computed: {
@@ -281,7 +308,7 @@
         },
         mounted () {
         },
-        components: {slide,scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch,clipImage }
+        components: {treeSelect,slide,scrollContainer, pagination,singleSelect, sectionContainer, jcDialog, simpleBanner, spreadTransition, simpleLoad, selectItem,  selectGroup, canvasLoad, dragSort, jcSwitch,clipImage }
     }
 </script>
 <style>

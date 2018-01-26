@@ -18,6 +18,7 @@
                 </li>
             </ul>
         </section>
+        <!--<dropDown></dropDown>-->
     </div>
 </template>
 <script>
@@ -31,6 +32,7 @@
     mouseenter :: mouseleave
   */
     export default  {
+    	name: 'dropDown',
     	props: {
     		list: {
     			type: Array,
@@ -66,10 +68,9 @@
 	            this.close()
             },
 	        handleShow (type) {
-    			console.log('AAA')
     			const {trigger} = this
                 if (type === trigger) {
-	                this.isShow = true
+	                this.isShow = !this.isShow
                 }
                 return
             },
