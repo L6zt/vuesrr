@@ -8,6 +8,7 @@
                 @drop="drop(index, $event)"
                 @dragend="dragend(index, $event)"
                 @dragenter="dragenter(index, $event)"
+                @dragover.stop.prevent
                 draggable="true"
                 :class="{'active': index === mvIndex}"
                 ref="item">
@@ -41,6 +42,7 @@
         methods: {
 	        dragstart (index, e) {
 	        	// 初始化
+                event.stopPropagation()
                 //e.preventDefault()
 	        	const orgAry = this.$options.orgAry = JSON.parse(JSON.stringify(this.sort))
     	    	this.oIndex = index
@@ -53,7 +55,7 @@
 //                })
             },
 	        dragenter (index, e) {
-//		        e.preventDefault()
+		        e.preventDefault()
                 const {$options: {orgAry}, oIndex} =  this
                 const result =  [...orgAry]
                 const replace =  result.splice(oIndex, 1, orgAry[index])[0]
@@ -94,7 +96,7 @@
                 height: 40px;
                 line-height: 40px;
                 background: #333;
-                cursor: pointer;
+                cursor: pointer !important;
                 &:hover {
                     background: red;
                  }
