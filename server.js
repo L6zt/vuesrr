@@ -64,6 +64,7 @@ function render (req, res) {
   const s = Date.now()
 
   res.setHeader("Content-Type", "text/html")
+  res.setHeader("Cache-Control", "private,no-store,max-age=0,no-cache,must-revalidate,post-check=0,pre-check=0")
   res.setHeader("Server", serverInfo)
 
   const handleError = err => {
