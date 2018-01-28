@@ -2,29 +2,28 @@
         <!--主 器-->
         <div class="jc-tree-son-select"
              :class="`drop-${layDirection}`"
-             v-if="isShow"
+             v-if="show"
         >
             <section v-for="item, index in list"
                      v-if="item.child"
                      :key="index"
-                     @click.stop.prevent="handleShow(index)"
+                     @click.stop.prevent="handleShow(`${ownChain}${ownChain? '-' : ''}${item.k}`)"
                      class="tree-son-item"
+                     :class="{'fk-active': currentChain === `${ownChain}${ownChain? '-' : ''}${item.k}`}"
             >
                 {{item.v}}
                 <tree-son
                         :list="item.child"
-                        :isShow="index === showIndex"
-                        :fartherMsg="item"
                         :sonDirection="sonDirection"
-                        :kv="`${kv ? `${kv}-` : ''}${item.k}`"
-                        :end="end"
+                        :chain="chain"
+                        :ownChain="`${ownChain}${ownChain? '-' : ''}${item.k}`"
                         :floor="floor + 1"
                 ></tree-son>
             </section>
             <section
                     class="tree-son-item"
                     @click.stop.prevent="select(item)"
-                    :class="{'fk-active': `${kv ? `${kv}-` : ''}${item.k}` === end}"
+                    :class="{'fk-active': chain === `${ownChain}${ownChain? '-' : ''}${item.k}`}"
                     :key="index"
                     v-else
             >
@@ -36,35 +35,40 @@
         export default {
         	name: 'treeSon',
         	props: {
+        		// root
+                root: {
+                	default: false
+                },
         		// 列表
         		list: {
         			type: Array,
                     require: true
                 },
-                kv: {
-        			require: true
-                },
-                end: {
+                // 树形链
+                chain: {
         			type: String,
                     default: ''
                 },
+                // 自己的 chain
+                ownChain: {
+	                type: String,
+	                default: ''
+                },
+                // 层级
                 floor: {
         			type: Number
                 },
+                // 是否显示
                 isShow : {
         			require: false
                 },
+                // 展现方向
                 direction: {
                     default: false
                 },
+                // 子元素展现方向
                 sonDirection: {
                     default: false
-                },
-                fartherMsg: {
-        			require: false,
-                    default () {
-        				return {}
-                    }
                 }
             },
         	data () {
@@ -73,11 +77,6 @@
                 }
             },
             watch: {
-        		isShow (v) {
-        			if (v === false) {
-        				this.showIndex = null
-                    }
-                }
             },
             computed: {
         		layDirection () {
@@ -86,23 +85,41 @@
         				return direction
                     }
                     return sonDirection
+                },
+                currentChain () {
+        			const {chain, floor} = this
+        			return chain.split('-').splice(0, floor).join('-')
+                },
+                show () {
+        			const {root, isShow, ownChain, chain, floor} = this
+        			if (root) {
+        				return isShow
+                    }
+                    return chain.split('-').splice(0, floor - 1).join('-') === ownChain
                 }
             },
             methods: {
-	            handleShow (index) {
-	            	this.showIndex = index
-                },
-                close (index) {
+	            handleShow (cn) {
+                    const {chain, currentChain, floor} = this
+                    if (cn === currentChain) {
+                    	cn = chain.split('-').splice(0, floor - 1).join('-')
+                    }
+		            this.sendFather('treeSelect', {
+			            event: 'showDown',
+			            playLoad: {
+				           chain: cn
+			            }
+		            })
 
-                },
+	            },
                 select (item) {
-	            	const {kv} = this
+	            	const {ownChain} = this
                     const {k, v} = item
 	            	this.showIndex = null
                     this.sendFather('treeSelect', {
                     	event: 'close',
                         playLoad: {
-                    		k: `${kv ? `${kv}-` : ''}${k}`,
+                    		k: `${ownChain}${ownChain ? '-' : ''}${k}`,
                             v
                         }
                     })
@@ -129,6 +146,7 @@
                     line-height: 25px;
                     text-align: center;
                     cursor: pointer;
+                    background:#333;
                     &:hover {
                       background: red;
                      }

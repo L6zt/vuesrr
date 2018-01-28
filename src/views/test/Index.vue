@@ -21,9 +21,14 @@
         <button @click="addV">
             add+++
         </button>
+        <select-group
+        v-model="treeEnd"
+        :list="treeSelect"
+        ></select-group>
     </div>
 </template>
 <script>
+    import selectGroup from '../../components/dropDown2/treeSelect.vue'
     export default {
 	    metaInfo () {
 		    return {
@@ -49,9 +54,30 @@
 	                {id: 4},
 	                {id: 5},
 	                {id: 6}
-                ]
+                ],
+			    treeEnd: 'ui',
+			    treeSelect: [
+				    {k: 'a', v: 'a', child: [
+					    {k: 'b', v: 'b'},
+					    {k:'c', v: 'c'}
+				    ]},
+				    {k: 'z', v: 'z', child: [
+					    {k: 'b', v: '1',
+						    child: [
+							    {k: 31, v: 310},
+							    {k: 32, v: 320}
+						    ]},
+					    {k:'c', v: '2'},
+					    {k: 3, v: 3, child: [
+						    {k: 31, v: 310},
+						    {k: 32, v: 320}
+					    ]}
+				    ]},
+				    {k: 'ui', v: 'ui'}
+			    ]
             }
         },
+        components: {selectGroup},
         methods: {
 	    	initList () {
 	    		this.list =this.init.map(item => {

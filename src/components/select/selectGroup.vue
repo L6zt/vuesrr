@@ -14,9 +14,8 @@
                 default: []
             },
             min: {
-    			type:  String,
                 require: false,
-                default: null
+                default: 0
             },
             max:  {
 	            type:  String,
@@ -75,15 +74,19 @@
 				               this.$emit('input', cSelect)
                            }
                         } else {
-		                	let index = cSelect.indexOf(dt.k)
-                            cSelect.splice(index,1)
-                            this.$emit('input', cSelect)
+			                if (lg > min) {
+				                let index = cSelect.indexOf(dt.k)
+				                cSelect.splice(index, 1)
+				                this.$emit('input', cSelect)
+			                }
                         }
 	               } else {
 		               if (isSelect === true) {
-			               let index = cSelect.indexOf(dt.k)
-			               cSelect.splice(index,1)
-			               this.$emit('input', cSelect)
+		               	  if (lg > min ) {
+			                  let index = cSelect.indexOf(dt.k)
+			                  cSelect.splice(index,1)
+			                  this.$emit('input', cSelect)
+                          }
 		               }
 	               }
             })

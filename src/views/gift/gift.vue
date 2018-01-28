@@ -123,6 +123,7 @@
                 <pre  style="display:block;height: 20px;line-height: 20px;">{{(gp || []).join('|')}}</pre>
                 <select-group
                     max="2"
+                    min="1"
                     v-model="gp"
                 >
                     <select-item
@@ -150,6 +151,7 @@
         <section-container>
             树形 选择
             <template slot="content">
+                <pre>{{treeEnd}}</pre>
                 <tree-select
                         :list="treeSelect"
                         v-model="treeEnd"
@@ -281,7 +283,11 @@
                         {k:'c', v: 'c'}
                     ]},
 	                {k: 'z', v: 'z', child: [
-		                {k: 'b', v: '1'},
+		                {k: 'b', v: '1',
+			                child: [
+				                {k: 31, v: 310},
+				                {k: 32, v: 320}
+			                ]},
 		                {k:'c', v: '2'},
                         {k: 3, v: 3, child: [
                             {k: 31, v: 310},

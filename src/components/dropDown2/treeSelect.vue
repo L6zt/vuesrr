@@ -7,16 +7,17 @@
         <tree-son
            :list="list"
            :isShow="isShow"
+           :root="true"
            direction="down"
            sonDirection="right"
-           :kv="kv"
            :floor="floor"
-           :end="value"
+           :chain="chain"
         ></tree-son>
     </div>
 </template>
 <script>
     import treeSon from './treeSon.vue'
+    // 反解 value
     const recursion = (ay, k, n) => {
             if (k !== '') {
             	const check = k.split('-')
@@ -49,14 +50,22 @@
     			isShow: false,
                 kv: '',
                 name: '',
-                floor: 1
+                floor: 1,
+                chain: this.value,
+                triggerShowDown: false
             }
         },
         created () {
+    		// 关闭 并结算 链值
     		this.$on('close', ({k, v}) => {
     		   this.isShow = false
                this.name = v
                this.$emit('input', k)
+            })
+            // 获取展开下级的 链 key
+            this.$on('showDown', ({chain}) => {
+            	this.chain = chain
+                this.triggerShowDown = true
             })
         },
         watch: {
@@ -78,12 +87,16 @@
 	        	this.isShow = !this.isShow
             },
             out () {
-	        	console.log('  out  ')
+	        	if (this.triggerShowDown) {
+			        this.triggerShowDown = false
+                    this.chain = this.value
+                }
 	        	this.isShow = false
             },
             init () {
 	            const nTree =  recursion(this.list || [], this.value, 0).split('-')
 	            this.name = nTree[nTree.length - 1]
+                this.chain = this.value
             }
         },
     	components: {

@@ -5,9 +5,9 @@
     	render (h, ct) {
 	    	let height
             return h('transition', {
-//            	props: {
-//                    css: false
-//                },
+            	props: {
+                    css: false
+                },
             	on: {
 		            beforeEnter (el) {
 		            	addClass(el, 'transition-am')
