@@ -241,7 +241,7 @@
 	                }
                 ],
                 select: {
-	        		k: null,
+	        		k: 'b',
 	        		data: [
                         {
                         	k: 'a',
@@ -258,7 +258,7 @@
                     ]
                 },
 		        selectH: {
-			        k: null,
+			        k: 'b',
 			        data: [
 				        {
 					        k: 'a',
