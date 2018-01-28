@@ -70,7 +70,7 @@
                let index = cSelect.indexOf(dt.k)
 	               if (index === -1) {
 		                if (isSelect === false) {
-			               if ( lg <= parseInt(max)) {
+			               if ( lg < parseInt(max)) {
 				               cSelect.push(dt.k)
 				               this.$emit('input', cSelect)
                            }

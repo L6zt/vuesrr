@@ -9,14 +9,16 @@
         <section class="jc-single-select-text">
             {{`${text||'请选择'}`}}
         </section>
-        <section class="jc-single-select-box" v-show="isShow">
-            <ul class="jc-single-select-list">
+        <section class="jc-single-select-box"   >
+            <spread-transition>
+            <ul class="jc-single-select-list" v-if="isShow">
                 <li v-for="(item, index) in list" @click.stop.prevent="select(item.k)"
                     class="jc-single-select-item"
                     :class="{active: item.k === value}">
                     {{item.v}}
                 </li>
             </ul>
+            </spread-transition>
         </section>
         <!--<dropDown></dropDown>-->
     </div>
@@ -31,7 +33,8 @@
     mouseover :: mouseout
     mouseenter :: mouseleave
   */
-    export default  {
+  import spreadTransition from '../spreadTransition.vue'
+  export default  {
     	name: 'dropDown',
     	props: {
     		list: {
@@ -62,6 +65,7 @@
                 return list[index]['v']
             }
         },
+       components: {spreadTransition},
         methods: {
     		select (index) {
     			this.$emit('input', index)
@@ -113,6 +117,7 @@
       @descendent list{
           border: 1px solid #ccc;
           border-radius: 5px;
+          box-sizing: border-box;
       }
       @descendent item {
           position: relative;

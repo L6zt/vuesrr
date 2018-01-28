@@ -68,7 +68,7 @@
 			return null
 		}
 		let  classList = el['className']
-		classList = classList === '' ? [] : className.split(/\s+/)
+		classList = classList === '' ? [] : classList.split(/\s+/)
 		if (classList.indexOf(className) === -1) {
 			classList.push(className)
 			el.className = classList.join(' ')
@@ -78,7 +78,7 @@
 	}
 	export const removeClass = function (el, className) {
 		let classList = el['className']
-		classList = classList === '' ? [] : className.split(/\s+/)
+		classList = classList === '' ? [] : classList.split(/\s+/)
 		classList = classList.filter(item => {
 			return item !== className
 		})

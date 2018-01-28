@@ -16,6 +16,7 @@
             <input type="text" :value="item.a" @input="inp(index,'a' ,$event)">
             <input type="text" :value="item.b" @input="inp(index, 'b',$event)">
             <input type="text" v-model="item.c" disabled>
+            <button @click="del(index)">del</button>
         </div>
         <button @click="addV">
             add+++
@@ -94,6 +95,9 @@
                     b: null,
                     c: null
                 })
+            },
+	        del (index) {
+	    		this.v.splice(index, 1)
             }
         },
         mounted () {
