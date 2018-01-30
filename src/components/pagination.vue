@@ -2,10 +2,12 @@
     <div class="jc-pagination">
         <a class="pd-left" @click="handlePre($event)"
         :class="{disabled: value === 1}"
+        v-if="allPage"
         >
             上一页
         </a>
         <a v-for="item, index in list"
+           v-if="allPage"
            @click="handleSelect($event,item)"
            :key="index"
            :class="{'is-active': item === value, 'normal-pq': true}"
@@ -14,8 +16,9 @@
           {{item}}
         </a>
         <a class="pd-right"
-          @click="handleNext"
-          :class="{disabled: value === allPage}"
+           v-if="allPage"
+           @click="handleNext"
+           :class="{disabled: value === allPage}"
         >
             下一页
         </a>
@@ -31,11 +34,10 @@
 		props: {
 			value: {
 				type: Number,
-				require: false,
-				default: 1
+				require: false
 			},
 			allPage: {
-				type: Number,
+				type: [Number, String],
 				default: 100
 			},
 			showPq: {
@@ -56,7 +58,15 @@
 		watch: {
 			value () {
 				this.handlePq()
-			}
+			},
+			allPage (v) {
+				if (this.value > v) {
+					console.log(this.value)
+					this.$emit('input', 1)
+                    return
+                }
+				this.handlePq()
+            },
 		},
 		methods: {
 			/**
@@ -77,7 +87,7 @@
 						this.list = list
 						return
 					}
-					for (let i = 1; i <= showPq; i++) {
+					for (let i = 1; i <= allPage; i++) {
 						list.push(i)
 					}
 					this.list = list
@@ -85,7 +95,7 @@
 				}
 				if (currentIndex + showPq <= allPage) {
 					list.push(1, '...')
-					for (let i = currentIndex - 2; i < currentIndex + 3; i++) {
+					for (let i = currentIndex - 2; i < currentIndex +  3; i++) {
 						list.push(i)
 					}
 					list.push('...', allPage)
