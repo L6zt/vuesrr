@@ -84,3 +84,65 @@
 		})
 		el.className = 	classList.join(' ')
 	}
+	export const delay = ({fn, time}) => {
+		let oT = null
+		let k = null
+		return () => {
+			// 当前时间
+			let cT = new Date().getTime()
+			const fixFn = () => {
+				k = oT = null
+				fn()
+			}
+			if (k === null) {
+				oT = cT
+				k = setTimeout(fixFn, time)
+				return
+			}
+			if (cT - oT < time) {
+				oT = cT
+				clearTimeout(k)
+				k = setTimeout(fixFn, time)
+			}
+		
+		}
+	}
+	export  const Event = function () {
+	   // 类型
+	   this.typeList = {}
+	}
+	Event.prototype.on = function ({type, fn}){
+		if (this.typeList.hasOwnProperty(type)) {
+			this.typeList[type].push(fn)
+		} else {
+			this.typeList[type] = []
+			this.typeList[type].push(fn)
+		}
+	}
+	Event.prototype.off = function({type, fn})  {
+	   if (this.typeList.hasOwnProperty(type)) {
+	   	  let list = this.typeList[type]
+		  let index = list.indexOf(fn)
+		  if (index !== -1 ) {
+	   	  	list.splice(index, 1)
+		  }
+		  
+	   } else {
+	   	 console.warn('not has this type')
+	   }
+	}
+	Event.prototype.once = function ({type, fn}) {
+	   const fixFn = () => {
+	   	 fn()
+	   	 this.off({type, fn: fixFn})
+	   }
+	   this.on({type, fn: fixFn})
+	}
+	Event.prototype.trigger = function (type){
+		if (this.typeList.hasOwnProperty(type)) {
+			this.typeList[type].forEach(fn => {
+				fn()
+			})
+		}
+	}
+	

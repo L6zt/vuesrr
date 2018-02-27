@@ -44,12 +44,6 @@ router.onReady(() => {
       })
       .catch(next)
   })
-	const firstMatchs = router.getMatchedComponents()
-	const asyncDataHooks = firstMatchs.map(c => c.asyncData).filter(_ => _)
-    Promise.all(asyncDataHooks.map(hook => hook({store, route: router.currentRoute})))
-        .then(() => {
-	        app.$mount('#app')
-        }).catch(() => {
-    })
+	app.$mount('#app')
 })
 

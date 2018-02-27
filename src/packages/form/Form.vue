@@ -48,7 +48,7 @@
 		                const validator = new schema(desc)
 		                validator.validate(formData,options, (errors, fields) => {
 			                if(errors) {
-				                _chList[item].msg = errors.map(item => item.message).join(',').replace(/,$/, '')
+				                _chList[item].$emit('msg', errors.map(item => item.message).join(',').replace(/,$/, ''))
 			                	j({
                                     status: !!0,
                                     errors,
@@ -56,12 +56,17 @@
                                 })
                                 return
 			                }
-			                _chList[item].msg = ''
+			                _chList[item].$emit('msg', '')
 				                r({status: !!1})
 		                })
                     })
                 })
                 return Promise.all(vfList)
+            },
+            clearValidator() {
+	           Object.keys(this._chList).forEach(k => {
+	           	 this._chList[k].$emit('msg', '')
+               })
             }
         }
     }

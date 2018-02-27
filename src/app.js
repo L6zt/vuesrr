@@ -3,6 +3,7 @@ import App from './App.vue'
 import rgComponent from './packages/registerComponents'
 import  {loadPlugins} from './plugins/index'
 import  clickOut from './directives/clickOut'
+import vscroll from './directives/vScroll'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import { createStore } from './store'
@@ -16,6 +17,7 @@ Vue.use(rgComponent)
 Vue.use(ElementUI)
 //
 Vue.directive('clickOut', clickOut)
+Vue.directive('scroll', vscroll)
 export function createApp () {
   const store = createStore()
   const router = createRouter()

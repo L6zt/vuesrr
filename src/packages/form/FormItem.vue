@@ -31,6 +31,9 @@
         },
         created () {
             this.prop && this.sendFather('jcForm', {event: 'add', playLoad: this})
+            this.$on('msg', (msg) => {
+            	this.msg = msg
+            })
         },
     }
 </script>

@@ -89,7 +89,7 @@
             .slide-enter {
                 transform: translate(100%, 0);
             }
-            .slide-leave-active {
+            .slide-leave-to {
                 transform: translate(-100%, 0);
                 transition: all .5s ease;
             }

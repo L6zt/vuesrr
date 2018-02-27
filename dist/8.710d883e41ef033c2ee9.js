@@ -1,0 +1,1 @@
+webpackJsonp([8],{556:function(n,e,r){var t=r(56)(null,r(724),null,null,null);n.exports=t.exports},724:function(n,e){n.exports={render:function(){var n=this,e=n.$createElement,r=n._self._c||e;return r("div",[r("div",[n._v("\n        common\n    ")]),r("router-view")],1)},staticRenderFns:[]}}});

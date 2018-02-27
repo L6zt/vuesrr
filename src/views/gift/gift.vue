@@ -17,10 +17,12 @@
         <section-container key="b">
             pc 端 分页组件
             <template slot="content">
+                <input type="text" v-model="at">
                 <pagination
                         v-model="current"
                         :allPage="all"
                         :ssrHref="ssrHref"
+                        :showPq="4"
                 >
                 </pagination>
             </template>
@@ -205,6 +207,14 @@
     import treeSelect from '../../components/dropdown/treeSelect.vue'
     import tm from '../../components/tm/tm.vue'
     export default  {
+	    metaInfo () {
+		    return {
+			    title: '组件测试',
+			    meta: [
+				    { vmid: 'description', name: 'description', content: '///' }
+			    ]
+		    }
+	    },
 	    asyncData ({store}) {
 		    return store.dispatch ('auth/login',  {
 			    name: 'react',
@@ -219,6 +229,7 @@
 	        	fHeight: 200,
                 num: 10,
                 current: 1,
+                at: 1000,
                 all: 1000,
                 ssrHref: 'gift/test/:num?pageIndex=1&pageSize=10',
                 isDialog: false,
@@ -305,6 +316,11 @@
 			    }
 		    })
 	    },
+        watch: {
+	    	at (v) {
+	    		this.all = parseInt(v)
+            }
+        },
         methods: {
 	    	change () {
 	    		this.num =  1 * (Math.random().toString().replace(/0.[0]?/ , '').substr(1, 2))

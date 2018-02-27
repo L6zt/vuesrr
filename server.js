@@ -7,14 +7,14 @@ const compression = require('compression')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV !== 'delveopment'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
 const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
 
 const app = express()
-// 模板文件
+// 解析 模板文件
 const template = fs.readFileSync(resolve('./src/index.template.html'), 'utf-8')
 
 function createRenderer (bundle, options) {
@@ -31,6 +31,7 @@ function createRenderer (bundle, options) {
 
 let renderer
 let readyPromise
+// 如果是 生成环境
 if (isProd) {
   const bundle = require('./dist/vue-ssr-server-bundle.json')
   const clientManifest = require('./dist/vue-ssr-client-manifest.json')
@@ -62,7 +63,7 @@ const isCacheable = req => useMicroCache
 
 function render (req, res) {
   const s = Date.now()
-
+ // 设置http 响应头
   res.setHeader("Content-Type", "text/html")
   res.setHeader("Cache-Control", "private,no-store,max-age=0,no-cache,must-revalidate,post-check=0,pre-check=0")
   res.setHeader("Server", serverInfo)
@@ -90,8 +91,9 @@ function render (req, res) {
       return res.end(hit)
     }
   }
+  // 环境
    const context = {
-   // title: 'vue --- 服务渲染', // default title
+    title: 'jc --- 服务渲染', // default title
     url: req.url
   }
   renderer.renderToString(context, (err, html) => {
@@ -99,7 +101,7 @@ function render (req, res) {
       return handleError(err)
     }
     // 压缩 html 文件 .replace(/(\r\n)|(\n)/g,'').replace(/<\s+(?=<)/g, '')
-    html = html.replace(/(\r\n)|(\n)/g,'').replace(/\s+(?=(<{1}))/g, '')
+   // html = html.replace(/(\r\n)|(\n)/g,'').replace(/\s+(?=(<{1}))/g, '')
     res.end(html)
     if (cacheable) {
       microCache.set(req.url, html)

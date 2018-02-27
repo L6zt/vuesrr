@@ -18,7 +18,7 @@
             <input type="text" v-model="item.c" disabled>
             <button @click="del(index)">del</button>
         </div>
-        <button @click="addV">
+        <button @click="addV" v-scroll="scroll">
             add+++
         </button>
         <select-group
@@ -91,6 +91,9 @@
 				    return item
 			    })
 
+            },
+            scroll (e) {
+	    		console.log(e)
             },
             changeList () {
 	    		const item = this.list.shift()

@@ -1,0 +1,1 @@
+webpackJsonp([7],{560:function(n,t,e){var r=e(56)(null,e(732),null,null,null);n.exports=r.exports},732:function(n,t){n.exports={render:function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("div",[n._v("\n    404\n    "),e("router-link",{attrs:{to:"/"}},[n._v("首页")])],1)},staticRenderFns:[]}}});
