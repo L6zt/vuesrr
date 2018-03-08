@@ -18,4 +18,4 @@
 来自 vue-meta
 ### 加入socket.io 测试
 ### nginx 配置
-![Image text](http://api.jcmark.cn/public/uploads/a4/6ad3e2db6568a077a6779474ee7389.jpg)
+
